@@ -1,0 +1,115 @@
+function camp2datafile(dir_in)
+% INPA - National Institute of Amazonian Research
+% LBA  - Large Scale Biosphere-Atmosphere Experiment in Amazonia
+%
+% Development : Paulo R. Teixeira and Team Micromet.
+% FeedBack : paulo.ricardo.teixeira at gmail.com
+% last local update : Oct 15,2014
+%
+% This computer script (M file) is distributed in the hope that it will
+% be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, please download it from
+% <http://www.gnu.org/licenses>
+%
+% Script to convert raw data file (concatenated)
+%
+% All data in the input file must be numeric. dlmread does not operate
+% on files containing nonnumeric data, even if the specified rows and
+% columns for the read contain numeric data only.
+%
+% Release Note:
+%
+% $Revision: 0.1 $
+% $Date: 2014/10/15 05:30 PM $
+%
+% Syntax: camp_to_datafile(input_folder,prefix_data_files)
+%
+% Input:    
+% {opt}     input_folder             - insert input path
+% 
+%
+% Example: camp_to_datafile('/home/user/TABLE0')
+
+path_bin=[pwd,filesep,'bin',filesep,'CardConvert',filesep];
+tmp_path=[pwd,filesep,'out_tmp',filesep];
+exec='CardConvert.exe';
+config_file=[pwd,filesep,'config',filesep,'config.ccf'];
+source_path=dir_in;
+target_path=tmp_path;
+%%%%% Init config file
+try
+    fileID = fopen(config_file, 'w');
+    
+    if fileID == -1
+        error('Err create config file');
+    end
+    
+    fprintf(fileID, '[main]\n');
+    fprintf(fileID, 'SourceDir=%s\n', source_path);
+    fprintf(fileID, 'TargetDir=%s\n', target_path);
+    fprintf(fileID, 'Format=2\n');
+    fprintf(fileID, 'FileMarks=1\n');
+    fprintf(fileID, 'RemoveMarks=0\n');
+    fprintf(fileID, 'RecNums=1\n');
+    fprintf(fileID, 'Timestamps=1\n');
+    fprintf(fileID, 'CreateNew=0\n');
+    fprintf(fileID, 'DateTimeNames=1\n');
+    fprintf(fileID, 'Midnight24=1\n');
+    fprintf(fileID, 'ColWidth=755\n');
+    fprintf(fileID, 'ListHeight=535\n');
+    fprintf(fileID, 'ListWidth=190\n');
+    fprintf(fileID, 'BaleCheck=1\n');
+    fprintf(fileID, 'CSVOptions=66015\n');
+    fprintf(fileID, 'BaleStart=38718\n');
+    fprintf(fileID, 'BaleInterval=32874,0416666667\n');
+    fprintf(fileID, 'DOY=0\n');
+    fprintf(fileID, 'Append=1\n');
+    fprintf(fileID, 'ConvertNew=0\n');
+    
+    fclose(fileID); % Fecha o arquivo após a escrita
+    fprintf('Configfile %s created successfully.\n', config_file);
+    
+catch ME
+    warning('Fail! %s', ME.message);
+end
+%%%%% End config file
+
+%idir=dir([dir_in,filesep,prefix,'*']);
+
+    if exist(target_path, 'dir')
+        warning('Directory %s already existing.\n',target_path)
+        ans = 'Press  Y/N for create directory [Y]: ';
+        str = input(ans,'s');
+        if isempty(str)
+            str = 'Y';
+        end
+        if strcmpi(str,'Y') == 1
+
+            fprintf('Directory %s created successfully.\n',target_path)
+            if ~exist(target_path, 'dir')
+                mkdir(target_path);
+            end
+        else
+            fprintf('Bye, bye...\n')
+            return            
+        end
+    else
+        mkdir(target_path);
+        fprintf('Directory %s created successfully.\n',target_path)
+    end 
+    cmd_exec = sprintf('%s runfile="%s"', [path_bin,filesep,exec], config_file);
+
+fprintf('Starting...\n');
+[status, cmdOut] = system(cmd_exec);
+
+if status == 0
+    fprintf('Successfully! chech files in "target_path".\n');
+else
+    fprintf('Fail!\n');
+    disp(cmdOut);
+end  
+end
