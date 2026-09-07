@@ -22,14 +22,14 @@ my_XMinorTick(3,'r')
 
 my_XMinorTick([],[],'off')
 
-# my_XMinorTick is part of Flow uMet-LBA Qa/Qc system Toolbox
-# INPA - National Institute of Amazonian Research
-# LBA - Large Scale Biosphere-Atmosphere Experiment in Amazonia
+my_XMinorTick is part of Flow uMet-LBA Qa/Qc system Toolbox
+INPA - National Institute of Amazonian Research
+LBA - Large Scale Biosphere-Atmosphere Experiment in Amazonia
+--------------------------------------------------------------
+Development : Paulo R. Teixeira and Team Micromet.
+FeedBack : paulo.ricardo.teixeira at gmail.com 
 
-# Development : Paulo R. Teixeira and Team Micromet.
-# FeedBack : paulo.ricardo.teixeira at gmail.com 
-
-# Open in File Exchange
+## Open in File Exchange
 https://www.mathworks.com/matlabcentral/fileexchange/47892-my_xminortick-m
-# Open in MATLAB Online
+## Open in MATLAB Online
 https://matlab.mathworks.com/open/fileexchange/v1?id=47892
