@@ -1,0 +1,33 @@
+# Arquivos de salvamento automático (Autosave files)
+*.asv
+*.m~
+*.autosave
+*.slx.r*
+*.mdl.r*
+
+# Arquivos derivados e protegidos (Derived content-obscured files)
+*.p
+
+# Arquivos MEX compilados (Compiled MEX files)
+*.mex*
+
+# Aplicativos empacotados e toolboxes (Packaged app and toolbox files)
+*.mlappinstall
+*.mltbx
+
+# Arquivos de implantação (Deployable archives)
+*.ctf
+
+# Pastas de pesquisa de ajuda geradas (Generated helpsearch folders)
+helpsearch/
+
+# Pastas de geração de código (Code generation folders)
+slprj/
+sccprj/
+codegen/
+
+# Arquivos de cache (Cache files)
+*.slxc
+
+# Configurações de armazenamento em nuvem (Cloud-based storage dotfiles)
+.MATLABDriveTag
